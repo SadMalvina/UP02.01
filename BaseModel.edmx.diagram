@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="938af91fdc0b4d06b0bcd2870591bc9d" Name="Diagram1">
+        <EntityTypeShape EntityType="KingITTModel.Arenda" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="KingITTModel.Arendators" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KingITTModel.Pavilions" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KingITTModel.Role" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KingITTModel.SC" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KingITTModel.StatusPavilions" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KingITTModel.StatusSC" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KingITTModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KingITTModel.Workers" Width="1.5" PointX="3" PointY="14" IsExpanded="true" />
+        <AssociationConnector Association="KingITTModel.FK_Arenda__Arendators_" ManuallyRouted="false" />
+        <AssociationConnector Association="KingITTModel.FK_Arenda__Workers_" ManuallyRouted="false" />
+        <AssociationConnector Association="KingITTModel.FK_Arenda_Pavilions" ManuallyRouted="false" />
+        <AssociationConnector Association="KingITTModel.FK_Arenda_SC" ManuallyRouted="false" />
+        <AssociationConnector Association="KingITTModel.FK_Pavilions_StatusPavilions" ManuallyRouted="false" />
+        <AssociationConnector Association="KingITTModel.FK_Workers_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="KingITTModel.FK_SC_StatusSC" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

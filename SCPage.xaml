@@ -1,0 +1,48 @@
+﻿<Page x:Class="KingIT.SCPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:KingIT"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="SCPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="33*"/>
+            <RowDefinition Height="367*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <WrapPanel Orientation="Horizontal"  HorizontalAlignment="Center" Margin="150,0" Grid.RowSpan="3" Grid.Row="0" Width="500">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Введите город:" TextAlignment="Right"/>
+                <TextBox x:Name="TBoxSearch" TextChanged="TBoxSearch_TextChanged"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="Введите статус:" TextAlignment="Right"/>
+                <ComboBox SelectedItem="{Binding StatusSC.IDStatusSC}" x:Name="StatusSCBox" DisplayMemberPath="NameStatusSC" SelectionChanged="StatusSCBox_SelectionChanged_1"/>
+            </StackPanel>
+        </WrapPanel>
+        <DataGrid x:Name="DGridSC" AutoGenerateColumns="False" IsReadOnly="True" HorizontalContentAlignment="Center" Grid.Row="1" VerticalContentAlignment="Center" Grid.RowSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название ТЦ" Binding="{Binding NameSC}" Width="*"/>
+                <DataGridTextColumn Header="Статус" Binding="{Binding StatusSC.NameStatusSC}" Width="*"/>
+                <DataGridTextColumn Header="Количество павильонов" Binding="{Binding NumOfPavilionsSC}" Width="*"/>
+                <DataGridTextColumn Header="Город" Binding="{Binding TownSC}" Width="*"/>
+                <DataGridTextColumn Header="Стоимость" Binding="{Binding CostSC}" Width="*"/>
+                <DataGridTextColumn Header="Этажность" Binding="{Binding NumOfFloorsSC}" Width="*"/>
+                <DataGridTextColumn Header="Коэф. доб. стоимости" Binding="{Binding CoeffAddValueSC}" Width="*"/>
+                <DataGridTemplateColumn Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Редактировать" Name="BtnEdit" Click="BtnEdit_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Добавить" Grid.Row="2" HorizontalAlignment="Left" Name="BtnAdd" Click="BtnAdd_Click" HorizontalContentAlignment="Center" Margin="5,10,0,10"/>
+        <Button Content="Удалить" Grid.Row="2" HorizontalAlignment="Right" Name="BtnDel" Click="BtnDel_Click" VerticalContentAlignment="Center" Margin="0,10,5,10"/>
+    </Grid>
+</Page>

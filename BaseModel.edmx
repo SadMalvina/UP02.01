@@ -1,0 +1,617 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище KingITTModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Arenda">
+          <Key>
+            <PropertyRef Name="IDRental" />
+          </Key>
+          <Property Name="IDRental" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDTenant" Type="int" />
+          <Property Name="NameSC" Type="varchar" MaxLength="50" />
+          <Property Name="IDEmployee" Type="int" Nullable="false" />
+          <Property Name="NumPavilionAR" Type="varchar" MaxLength="4" />
+          <Property Name="StatusAR" Type="varchar" MaxLength="50" />
+          <Property Name="StartLease" Type="date" />
+          <Property Name="EndLease" Type="date" />
+          <Property Name="IDPavilion" Type="int" />
+          <Property Name="IDSC" Type="int" />
+        </EntityType>
+        <EntityType Name="Arendators">
+          <Key>
+            <PropertyRef Name="IDTenant" />
+          </Key>
+          <Property Name="IDTenant" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDRental" Type="int" />
+          <Property Name="NameAren" Type="varchar" MaxLength="50" />
+          <Property Name="Number" Type="varchar" MaxLength="16" />
+          <Property Name="TownAren" Type="varchar" MaxLength="50" />
+          <Property Name="Street" Type="varchar" MaxLength="50" />
+          <Property Name="House" Type="int" />
+          <Property Name="Building" Type="int" />
+        </EntityType>
+        <EntityType Name="Pavilions">
+          <Key>
+            <PropertyRef Name="IDPavilion" />
+          </Key>
+          <Property Name="IDPavilion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumPavilion" Type="varchar" MaxLength="4" />
+          <Property Name="FloorPav" Type="int" />
+          <Property Name="NameSC" Type="nchar" MaxLength="10" />
+          <Property Name="IDStatusPavilions" Type="int" />
+          <Property Name="Square" Type="float" />
+          <Property Name="CostSqMPav" Type="float" />
+          <Property Name="CoeffAddValuePav" Type="float" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IDRole" />
+          </Key>
+          <Property Name="IDRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameRole" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SC">
+          <Key>
+            <PropertyRef Name="IDSC" />
+          </Key>
+          <Property Name="IDSC" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameSC" Type="varchar" MaxLength="50" />
+          <Property Name="IDStatusSC" Type="int" />
+          <Property Name="NumOfPavilionsSC" Type="int" />
+          <Property Name="TownSC" Type="varchar" MaxLength="50" />
+          <Property Name="CostSC" Type="float" />
+          <Property Name="CoeffAddValueSC" Type="float" />
+          <Property Name="IDPavilion" Type="int" />
+          <Property Name="NumOfFloorsSC" Type="int" />
+          <Property Name="ImageSC" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="StatusPavilions">
+          <Key>
+            <PropertyRef Name="IDStatusPavilions" />
+          </Key>
+          <Property Name="IDStatusPavilions" Type="int" Nullable="false" />
+          <Property Name="NameStatusPavilions" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="StatusSC">
+          <Key>
+            <PropertyRef Name="IDStatusSC" />
+          </Key>
+          <Property Name="IDStatusSC" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameStatusSC" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Workers">
+          <Key>
+            <PropertyRef Name="IDEmployee" />
+          </Key>
+          <Property Name="IDEmployee" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="50" />
+          <Property Name="Login" Type="varchar" MaxLength="15" />
+          <Property Name="Password" Type="varchar" MaxLength="20" />
+          <Property Name="IDRole" Type="int" />
+          <Property Name="PhoneNum" Type="varchar" MaxLength="16" />
+          <Property Name="Sex" Type="char" MaxLength="1" />
+          <Property Name="Photo" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_Arenda$_Arendators$">
+          <End Role="Arendators" Type="Self.Arendators" Multiplicity="0..1" />
+          <End Role="Arenda" Type="Self.Arenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Arendators">
+              <PropertyRef Name="IDTenant" />
+            </Principal>
+            <Dependent Role="Arenda">
+              <PropertyRef Name="IDTenant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Arenda$_Workers$">
+          <End Role="Workers" Type="Self.Workers" Multiplicity="1" />
+          <End Role="Arenda" Type="Self.Arenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Workers">
+              <PropertyRef Name="IDEmployee" />
+            </Principal>
+            <Dependent Role="Arenda">
+              <PropertyRef Name="IDEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Arenda_Pavilions">
+          <End Role="Pavilions" Type="Self.Pavilions" Multiplicity="0..1" />
+          <End Role="Arenda" Type="Self.Arenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pavilions">
+              <PropertyRef Name="IDPavilion" />
+            </Principal>
+            <Dependent Role="Arenda">
+              <PropertyRef Name="IDPavilion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Arenda_SC">
+          <End Role="SC" Type="Self.SC" Multiplicity="0..1" />
+          <End Role="Arenda" Type="Self.Arenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SC">
+              <PropertyRef Name="IDSC" />
+            </Principal>
+            <Dependent Role="Arenda">
+              <PropertyRef Name="IDSC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pavilions_StatusPavilions">
+          <End Role="StatusPavilions" Type="Self.StatusPavilions" Multiplicity="0..1" />
+          <End Role="Pavilions" Type="Self.Pavilions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusPavilions">
+              <PropertyRef Name="IDStatusPavilions" />
+            </Principal>
+            <Dependent Role="Pavilions">
+              <PropertyRef Name="IDStatusPavilions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SC_StatusSC">
+          <End Role="StatusSC" Type="Self.StatusSC" Multiplicity="0..1" />
+          <End Role="SC" Type="Self.SC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusSC">
+              <PropertyRef Name="IDStatusSC" />
+            </Principal>
+            <Dependent Role="SC">
+              <PropertyRef Name="IDStatusSC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Workers_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Workers" Type="Self.Workers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IDRole" />
+            </Principal>
+            <Dependent Role="Workers">
+              <PropertyRef Name="IDRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище KingITTModelContainer">
+          <EntitySet Name="Arenda" EntityType="Self.Arenda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Arendators" EntityType="Self.Arendators" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pavilions" EntityType="Self.Pavilions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SC" EntityType="Self.SC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusPavilions" EntityType="Self.StatusPavilions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusSC" EntityType="Self.StatusSC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Workers" EntityType="Self.Workers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Arenda$_Arendators$" Association="Self.FK_Arenda$_Arendators$">
+            <End Role="Arendators" EntitySet="Arendators" />
+            <End Role="Arenda" EntitySet="Arenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Arenda$_Workers$" Association="Self.FK_Arenda$_Workers$">
+            <End Role="Workers" EntitySet="Workers" />
+            <End Role="Arenda" EntitySet="Arenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Arenda_Pavilions" Association="Self.FK_Arenda_Pavilions">
+            <End Role="Pavilions" EntitySet="Pavilions" />
+            <End Role="Arenda" EntitySet="Arenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Arenda_SC" Association="Self.FK_Arenda_SC">
+            <End Role="SC" EntitySet="SC" />
+            <End Role="Arenda" EntitySet="Arenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pavilions_StatusPavilions" Association="Self.FK_Pavilions_StatusPavilions">
+            <End Role="StatusPavilions" EntitySet="StatusPavilions" />
+            <End Role="Pavilions" EntitySet="Pavilions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SC_StatusSC" Association="Self.FK_SC_StatusSC">
+            <End Role="StatusSC" EntitySet="StatusSC" />
+            <End Role="SC" EntitySet="SC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Workers_Role" Association="Self.FK_Workers_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Workers" EntitySet="Workers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KingITTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Arenda">
+          <Key>
+            <PropertyRef Name="IDRental" />
+          </Key>
+          <Property Name="IDRental" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDTenant" Type="Int32" />
+          <Property Name="NameSC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IDEmployee" Type="Int32" Nullable="false" />
+          <Property Name="NumPavilionAR" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="StatusAR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StartLease" Type="DateTime" Precision="0" />
+          <Property Name="EndLease" Type="DateTime" Precision="0" />
+          <Property Name="IDPavilion" Type="Int32" />
+          <Property Name="IDSC" Type="Int32" />
+          <NavigationProperty Name="Arendators" Relationship="Self.FK_Arenda__Arendators_" FromRole="Arenda" ToRole="Arendators" />
+          <NavigationProperty Name="Workers" Relationship="Self.FK_Arenda__Workers_" FromRole="Arenda" ToRole="Workers" />
+          <NavigationProperty Name="Pavilions" Relationship="Self.FK_Arenda_Pavilions" FromRole="Arenda" ToRole="Pavilions" />
+          <NavigationProperty Name="SC" Relationship="Self.FK_Arenda_SC" FromRole="Arenda" ToRole="SC" />
+        </EntityType>
+        <EntityType Name="Arendators">
+          <Key>
+            <PropertyRef Name="IDTenant" />
+          </Key>
+          <Property Name="IDTenant" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDRental" Type="Int32" />
+          <Property Name="NameAren" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Number" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="TownAren" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="House" Type="Int32" />
+          <Property Name="Building" Type="Int32" />
+          <NavigationProperty Name="Arenda" Relationship="Self.FK_Arenda__Arendators_" FromRole="Arendators" ToRole="Arenda" />
+        </EntityType>
+        <EntityType Name="Pavilions">
+          <Key>
+            <PropertyRef Name="IDPavilion" />
+          </Key>
+          <Property Name="IDPavilion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumPavilion" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="FloorPav" Type="Int32" />
+          <Property Name="NameSC" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IDStatusPavilions" Type="Int32" />
+          <Property Name="Square" Type="Double" />
+          <Property Name="CostSqMPav" Type="Double" />
+          <Property Name="CoeffAddValuePav" Type="Double" />
+          <NavigationProperty Name="Arenda" Relationship="Self.FK_Arenda_Pavilions" FromRole="Pavilions" ToRole="Arenda" />
+          <NavigationProperty Name="StatusPavilions" Relationship="Self.FK_Pavilions_StatusPavilions" FromRole="Pavilions" ToRole="StatusPavilions" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IDRole" />
+          </Key>
+          <Property Name="IDRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameRole" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Workers" Relationship="Self.FK_Workers_Role" FromRole="Role" ToRole="Workers" />
+        </EntityType>
+        <EntityType Name="SC">
+          <Key>
+            <PropertyRef Name="IDSC" />
+          </Key>
+          <Property Name="IDSC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameSC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IDStatusSC" Type="Int32" />
+          <Property Name="NumOfPavilionsSC" Type="Int32" />
+          <Property Name="TownSC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CostSC" Type="Double" />
+          <Property Name="CoeffAddValueSC" Type="Double" />
+          <Property Name="IDPavilion" Type="Int32" />
+          <Property Name="NumOfFloorsSC" Type="Int32" />
+          <Property Name="ImageSC" Type="String" />
+          <NavigationProperty Name="Arenda" Relationship="Self.FK_Arenda_SC" FromRole="SC" ToRole="Arenda" />
+          <NavigationProperty Name="StatusSC" Relationship="Self.FK_SC_StatusSC" FromRole="SC" ToRole="StatusSC" />
+        </EntityType>
+        <EntityType Name="StatusPavilions">
+          <Key>
+            <PropertyRef Name="IDStatusPavilions" />
+          </Key>
+          <Property Name="IDStatusPavilions" Type="Int32" Nullable="false" />
+          <Property Name="NameStatusPavilions" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Pavilions" Relationship="Self.FK_Pavilions_StatusPavilions" FromRole="StatusPavilions" ToRole="Pavilions" />
+        </EntityType>
+        <EntityType Name="StatusSC">
+          <Key>
+            <PropertyRef Name="IDStatusSC" />
+          </Key>
+          <Property Name="IDStatusSC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameStatusSC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SC" Relationship="Self.FK_SC_StatusSC" FromRole="StatusSC" ToRole="SC" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Workers">
+          <Key>
+            <PropertyRef Name="IDEmployee" />
+          </Key>
+          <Property Name="IDEmployee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Login" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IDRole" Type="Int32" />
+          <Property Name="PhoneNum" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Photo" Type="String" />
+          <NavigationProperty Name="Arenda" Relationship="Self.FK_Arenda__Workers_" FromRole="Workers" ToRole="Arenda" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Workers_Role" FromRole="Workers" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_Arenda__Arendators_">
+          <End Role="Arendators" Type="Self.Arendators" Multiplicity="0..1" />
+          <End Role="Arenda" Type="Self.Arenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Arendators">
+              <PropertyRef Name="IDTenant" />
+            </Principal>
+            <Dependent Role="Arenda">
+              <PropertyRef Name="IDTenant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Arenda__Workers_">
+          <End Role="Workers" Type="Self.Workers" Multiplicity="1" />
+          <End Role="Arenda" Type="Self.Arenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Workers">
+              <PropertyRef Name="IDEmployee" />
+            </Principal>
+            <Dependent Role="Arenda">
+              <PropertyRef Name="IDEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Arenda_Pavilions">
+          <End Role="Pavilions" Type="Self.Pavilions" Multiplicity="0..1" />
+          <End Role="Arenda" Type="Self.Arenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pavilions">
+              <PropertyRef Name="IDPavilion" />
+            </Principal>
+            <Dependent Role="Arenda">
+              <PropertyRef Name="IDPavilion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Arenda_SC">
+          <End Role="SC" Type="Self.SC" Multiplicity="0..1" />
+          <End Role="Arenda" Type="Self.Arenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SC">
+              <PropertyRef Name="IDSC" />
+            </Principal>
+            <Dependent Role="Arenda">
+              <PropertyRef Name="IDSC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pavilions_StatusPavilions">
+          <End Role="StatusPavilions" Type="Self.StatusPavilions" Multiplicity="0..1" />
+          <End Role="Pavilions" Type="Self.Pavilions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusPavilions">
+              <PropertyRef Name="IDStatusPavilions" />
+            </Principal>
+            <Dependent Role="Pavilions">
+              <PropertyRef Name="IDStatusPavilions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Workers_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Workers" Type="Self.Workers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IDRole" />
+            </Principal>
+            <Dependent Role="Workers">
+              <PropertyRef Name="IDRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SC_StatusSC">
+          <End Role="StatusSC" Type="Self.StatusSC" Multiplicity="0..1" />
+          <End Role="SC" Type="Self.SC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusSC">
+              <PropertyRef Name="IDStatusSC" />
+            </Principal>
+            <Dependent Role="SC">
+              <PropertyRef Name="IDStatusSC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KingITTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Arenda" EntityType="Self.Arenda" />
+          <EntitySet Name="Arendators" EntityType="Self.Arendators" />
+          <EntitySet Name="Pavilions" EntityType="Self.Pavilions" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="SC" EntityType="Self.SC" />
+          <EntitySet Name="StatusPavilions" EntityType="Self.StatusPavilions" />
+          <EntitySet Name="StatusSC" EntityType="Self.StatusSC" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Workers" EntityType="Self.Workers" />
+          <AssociationSet Name="FK_Arenda__Arendators_" Association="Self.FK_Arenda__Arendators_">
+            <End Role="Arendators" EntitySet="Arendators" />
+            <End Role="Arenda" EntitySet="Arenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Arenda__Workers_" Association="Self.FK_Arenda__Workers_">
+            <End Role="Workers" EntitySet="Workers" />
+            <End Role="Arenda" EntitySet="Arenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Arenda_Pavilions" Association="Self.FK_Arenda_Pavilions">
+            <End Role="Pavilions" EntitySet="Pavilions" />
+            <End Role="Arenda" EntitySet="Arenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Arenda_SC" Association="Self.FK_Arenda_SC">
+            <End Role="SC" EntitySet="SC" />
+            <End Role="Arenda" EntitySet="Arenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pavilions_StatusPavilions" Association="Self.FK_Pavilions_StatusPavilions">
+            <End Role="StatusPavilions" EntitySet="StatusPavilions" />
+            <End Role="Pavilions" EntitySet="Pavilions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Workers_Role" Association="Self.FK_Workers_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Workers" EntitySet="Workers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SC_StatusSC" Association="Self.FK_SC_StatusSC">
+            <End Role="StatusSC" EntitySet="StatusSC" />
+            <End Role="SC" EntitySet="SC" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище KingITTModelContainer" CdmEntityContainer="KingITTEntities">
+          <EntitySetMapping Name="Arenda">
+            <EntityTypeMapping TypeName="KingITTModel.Arenda">
+              <MappingFragment StoreEntitySet="Arenda">
+                <ScalarProperty Name="IDRental" ColumnName="IDRental" />
+                <ScalarProperty Name="IDTenant" ColumnName="IDTenant" />
+                <ScalarProperty Name="NameSC" ColumnName="NameSC" />
+                <ScalarProperty Name="IDEmployee" ColumnName="IDEmployee" />
+                <ScalarProperty Name="NumPavilionAR" ColumnName="NumPavilionAR" />
+                <ScalarProperty Name="StatusAR" ColumnName="StatusAR" />
+                <ScalarProperty Name="StartLease" ColumnName="StartLease" />
+                <ScalarProperty Name="EndLease" ColumnName="EndLease" />
+                <ScalarProperty Name="IDPavilion" ColumnName="IDPavilion" />
+                <ScalarProperty Name="IDSC" ColumnName="IDSC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Arendators">
+            <EntityTypeMapping TypeName="KingITTModel.Arendators">
+              <MappingFragment StoreEntitySet="Arendators">
+                <ScalarProperty Name="IDTenant" ColumnName="IDTenant" />
+                <ScalarProperty Name="IDRental" ColumnName="IDRental" />
+                <ScalarProperty Name="NameAren" ColumnName="NameAren" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="TownAren" ColumnName="TownAren" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="House" ColumnName="House" />
+                <ScalarProperty Name="Building" ColumnName="Building" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pavilions">
+            <EntityTypeMapping TypeName="KingITTModel.Pavilions">
+              <MappingFragment StoreEntitySet="Pavilions">
+                <ScalarProperty Name="IDPavilion" ColumnName="IDPavilion" />
+                <ScalarProperty Name="NumPavilion" ColumnName="NumPavilion" />
+                <ScalarProperty Name="FloorPav" ColumnName="FloorPav" />
+                <ScalarProperty Name="NameSC" ColumnName="NameSC" />
+                <ScalarProperty Name="IDStatusPavilions" ColumnName="IDStatusPavilions" />
+                <ScalarProperty Name="Square" ColumnName="Square" />
+                <ScalarProperty Name="CostSqMPav" ColumnName="CostSqMPav" />
+                <ScalarProperty Name="CoeffAddValuePav" ColumnName="CoeffAddValuePav" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="KingITTModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="IDRole" ColumnName="IDRole" />
+                <ScalarProperty Name="NameRole" ColumnName="NameRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SC">
+            <EntityTypeMapping TypeName="KingITTModel.SC">
+              <MappingFragment StoreEntitySet="SC">
+                <ScalarProperty Name="IDSC" ColumnName="IDSC" />
+                <ScalarProperty Name="NameSC" ColumnName="NameSC" />
+                <ScalarProperty Name="IDStatusSC" ColumnName="IDStatusSC" />
+                <ScalarProperty Name="NumOfPavilionsSC" ColumnName="NumOfPavilionsSC" />
+                <ScalarProperty Name="TownSC" ColumnName="TownSC" />
+                <ScalarProperty Name="CostSC" ColumnName="CostSC" />
+                <ScalarProperty Name="CoeffAddValueSC" ColumnName="CoeffAddValueSC" />
+                <ScalarProperty Name="IDPavilion" ColumnName="IDPavilion" />
+                <ScalarProperty Name="NumOfFloorsSC" ColumnName="NumOfFloorsSC" />
+                <ScalarProperty Name="ImageSC" ColumnName="ImageSC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusPavilions">
+            <EntityTypeMapping TypeName="KingITTModel.StatusPavilions">
+              <MappingFragment StoreEntitySet="StatusPavilions">
+                <ScalarProperty Name="IDStatusPavilions" ColumnName="IDStatusPavilions" />
+                <ScalarProperty Name="NameStatusPavilions" ColumnName="NameStatusPavilions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusSC">
+            <EntityTypeMapping TypeName="KingITTModel.StatusSC">
+              <MappingFragment StoreEntitySet="StatusSC">
+                <ScalarProperty Name="IDStatusSC" ColumnName="IDStatusSC" />
+                <ScalarProperty Name="NameStatusSC" ColumnName="NameStatusSC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="KingITTModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Workers">
+            <EntityTypeMapping TypeName="KingITTModel.Workers">
+              <MappingFragment StoreEntitySet="Workers">
+                <ScalarProperty Name="IDEmployee" ColumnName="IDEmployee" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IDRole" ColumnName="IDRole" />
+                <ScalarProperty Name="PhoneNum" ColumnName="PhoneNum" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

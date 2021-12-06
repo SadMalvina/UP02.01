@@ -1,0 +1,23 @@
+﻿<Window x:Class="KingIT.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KingIT"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#FF37474F"/>
+        <Image Source="Resources/Эмблема.png" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Grid Grid.Row="2" Background="#FF78909C"/>
+
+        <TextBlock Text="KingIT" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFFF9C1A" TextAlignment="Center"/>
+        <Frame NavigationUIVisibility="Hidden" ContentRendered="MainFrame_ContentRendered" Grid.Row="1" Name="MainFrame" Background="White"/>
+        <Button Content="Назад" Name="BtnBack" VerticalAlignment="Center" HorizontalAlignment="Right" Click="BtnBack_Click"/>
+    </Grid>
+</Window>
